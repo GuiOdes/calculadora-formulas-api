@@ -16,3 +16,7 @@ body {
 #mathFormules {
     margin-top: 3em;
 }
+
+.form-control {
+    width: 3em;
+}
