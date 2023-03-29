@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody
 class BhaskaraController(
     val bhaskaraService: BhaskaraService
 ) {
-    @PostMapping("/calcular")
+    @PostMapping("/bhaskara")
     fun calculateBhaskara(@RequestBody calculateBhaskaraRequest: CalculateBhaskaraRequest):BhaskaraFormulaResponse{
         return bhaskaraService.calculateBhaskaraService(calculateBhaskaraRequest)
     }
