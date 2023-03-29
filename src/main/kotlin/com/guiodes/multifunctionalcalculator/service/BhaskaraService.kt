@@ -3,7 +3,9 @@ package com.guiodes.multifunctionalcalculator.service
 import com.guiodes.multifunctionalcalculator.request.CalculateBhaskaraRequest
 import com.guiodes.multifunctionalcalculator.response.BhaskaraFormulaResponse
 import kotlin.math.sqrt
+import org.springframework.stereotype.Service
 
+@Service
 class BhaskaraService(
     val bhaskaraFormulaResponse: BhaskaraFormulaResponse
 ) {
