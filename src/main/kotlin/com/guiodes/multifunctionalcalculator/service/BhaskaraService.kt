@@ -1,12 +1,16 @@
 package com.guiodes.multifunctionalcalculator.service
 
+import com.guiodes.multifunctionalcalculator.request.CalculateBhaskaraRequest
 import com.guiodes.multifunctionalcalculator.response.BhaskaraFormulaResponse
 import kotlin.math.sqrt
 
 class BhaskaraService(
     val bhaskaraFormulaResponse: BhaskaraFormulaResponse
 ) {
-    fun calculateBhaskaraService(a: Double, b: Double, c: Double) {
+    fun calculateBhaskaraService(calculateBhaskaraRequest: CalculateBhaskaraRequest):BhaskaraFormulaResponse {
+        val a = calculateBhaskaraRequest.a
+        val b = calculateBhaskaraRequest.b
+        val c = calculateBhaskaraRequest.c
         val delta = b * b -4 * a * c;
         val formulaDelta : String
         val formulaBhaskara : String
@@ -17,7 +21,7 @@ class BhaskaraService(
         else if(delta == 0.0){
             formulaBhaskara = "(-$b/2*$a)"
             val x1 = -b/(2*a)
-            return bhaskaraFormulaResponse.bhaskaraDeltaZero(x1, formulaBhaskara)
+            return bhaskaraFormulaResponse.bhaskaraDeltaZero(x1, formulaBhaskara, delta, formulaDelta)
         }
         else{
             val formulax1 = "(-$b + √($delta)) / 2$a"

@@ -1,31 +1,46 @@
 package com.guiodes.multifunctionalcalculator.response
 
-class BhaskaraFormulaResponse {
-    fun bhaskaraDeltaNegativo(delta: Double, formulaDelta: String){
+class BhaskaraFormulaResponse(
+    val resolution: MutableList<String>,
+    val result: MutableList<Double>
+) {
+    val message:String = "A fórmula de Bhaskara é uma fórmula quadrática que permite calcular as raízes de uma equação do segundo grau. A fórmula é dada por:\n" +
+            "\n" +
+            "x = (-b ± √(Δ)) / 2a\n" +
+            "Δ = b² - 4ac" +
+            "\n\n" +
+            "Onde \"a\", \"b\" e \"c\" são os coeficientes da equação ax² + bx + c = 0.\n" +
+            "\n" +
+            "Para calcular as raízes usando a fórmula de Bhaskara, siga os seguintes passos:" +
+            "Calcule o valor dentro da raiz quadrada, ou seja, o valor de \"b² - 4ac\".\n" +
+            "\n" +
+            "Se o valor de \"b² - 4ac\" for negativo, a equação não tem raízes reais, apenas raízes complexas.\n" +
+            "\n" +
+            "Se o valor de \"b² - 4ac\" for zero, a equação tem uma única raiz real.\n" +
+            "\n" +
+            "Se o valor de \"b² - 4ac\" for positivo, a equação tem duas raízes reais e distintas."
 
-        val message:String = "Para calcular o \"Δ\" usamos a formula b² - 4ac, " +
-                "que no seu caso, ficaria assim $formulaDelta \n\n" +
-                "É importante lembrar que a equação quadrática só tem solução " +
-                "real se o discriminante (Δ) for maior ou igual a zero. " +
-                "Caso contrário, a equação não possui solução real. \n\n" +
-                "Essa regra se aplica nesse seu caso, onde o \"Δ\" é negativo, logo" +
-                "a equação não possui valores reais"
+    fun bhaskaraDeltaNegativo(delta: Double, formulaDelta: String) = apply{
+        val messageSeg:String = "No seu caso, ficaria assim: "
+        val messageTer:String = "Como o Δ tem valor negativo, logo sua equação não possui raiz"
+        resolution.add(message)
+        resolution.add(messageSeg)
+        resolution.add(messageTer)
+        resolution.add(formulaDelta)
+        result.add(delta)
+
     }
-    fun bhaskaraDeltaZero(x1: Double, formulaBhaskara: String) {
-        val message:String = "Para calcular a formula de bhaskara usamos a formula" +
-                "x = (-b ± √(Δ)) / 2a, onde: Δ = b² - 4ac \n\n" +
-                "Onde:\n" +
-                "\n" +
-                "x são as raízes da equação\n" +
-                "a, b e c são coeficientes da equação quadrática, com a ≠ 0\n" +
-                "± indica que você deve encontrar duas soluções, uma adicionando a raiz e outra subtraindo.\n" +
-                "Quando o resultado de Δ for igual a zero, só existe a possibilidade de encontrar uma raiz, " +
-                "podendo trabalhar a formula assim:\n" +
-                "x = -b±√(0)+/2a\n" +
-                "Como √(0) = 0, logo: \n"+
-                "x = -b/2a\n" +
-                "Assim, sua conta fica assim x = $formulaBhaskara\n" +
-                "x = $x1"
+    fun bhaskaraDeltaZero(x1: Double, formulaBhaskara: String, delta: Double, formulaDelta: String) = apply {
+        val messageSeg:String = "No seu caso, ficaria assim: "
+        val messageTer:String = "Como o Δ tem valor igual a 0, logo sua equação possui somente uma raiz"
+        resolution.add(message)
+        resolution.add(messageSeg)
+        resolution.add(messageTer)
+        resolution.add(formulaDelta)
+        resolution.add(formulaBhaskara)
+        result.add(delta)
+        result.add(x1)
+
     }
     fun bhaskaraFormula(
         formulaBhaskara: String,
@@ -35,26 +50,18 @@ class BhaskaraFormulaResponse {
         formulax2: String,
         formulaDelta: String,
         delta: Double
-    ) {
-        val message:String ="A fórmula de Bhaskara é uma fórmula matemática usada para encontrar as raízes de uma equação quadrática, que é uma equação polinomial de segundo grau. A fórmula é dada por:\n" +
-                "\n" +
-                "x = (-b ± √(Δ)) / 2a, onde: Δ = b² - 4ac\n" +
-                "\n" +
-                "Onde:\n" +
-                "\n" +
-                "x são as raízes da equação\n" +
-                "a, b e c são coeficientes da equação quadrática, com a ≠ 0\n" +
-                "± indica que você deve encontrar duas soluções, uma adicionando a raiz e outra subtraindo.\n\n" +
-                "Dado os valores de A, B e C, essa será sua formula \n" +
-                "x = $formulaBhaskara \n" +
-                "Δ = $formulaDelta\n " +
-                "Δ = $delta \n\n" +
-                "Dado o valor de Δ, podemos calcular as duas raizes \n\n" +
-                "A primeira raiz será descoberta pela seguinte formula \n" +
-                "x' = $formulax1 \n" +
-                "x' = $x1 \n\n" +
-                "A segunda raiz será pela formula subtraindo o Δ \n\n" +
-                "x\"= $formulax2 \n" +
-                "x\" = $x2 \n"
+    ) = apply {
+        val messageSeg:String = "No seu caso, ficaria assim: "
+        val messageTer:String = "Como o Δ tem valor maior que 0, logo sua equação possui duas raizes"
+        resolution.add(message)
+        resolution.add(messageSeg)
+        resolution.add(messageTer)
+        resolution.add(formulaDelta)
+        resolution.add(formulaBhaskara)
+        resolution.add(formulax1)
+        resolution.add(formulax2)
+        result.add(delta)
+        result.add(x1)
+        result.add(x2)
     }
 }
