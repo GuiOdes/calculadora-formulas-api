@@ -1,6 +1,6 @@
 package controller
 
-import com.guiodes.multifunctionalcalculator.request.CalculateBhaskaraRequest
+import com.guiodes.multifunctionalcalculator.request.CalculateThreeFieldsRequest
 import com.guiodes.multifunctionalcalculator.response.BhaskaraFormulaResponse
 import com.guiodes.multifunctionalcalculator.service.BhaskaraService
 import org.springframework.stereotype.Controller
@@ -12,7 +12,7 @@ class BhaskaraController(
     val bhaskaraService: BhaskaraService
 ) {
     @PostMapping("/bhaskara")
-    fun calculateBhaskara(@RequestBody calculateBhaskaraRequest: CalculateBhaskaraRequest):BhaskaraFormulaResponse{
+    fun calculateBhaskara(@RequestBody calculateBhaskaraRequest: CalculateThreeFieldsRequest):BhaskaraFormulaResponse{
         return bhaskaraService.calculateBhaskaraService(calculateBhaskaraRequest)
     }
 }

@@ -1,13 +1,13 @@
 package com.guiodes.multifunctionalcalculator.service
 
-import com.guiodes.multifunctionalcalculator.request.CalculateBhaskaraRequest
+import com.guiodes.multifunctionalcalculator.request.CalculateThreeFieldsRequest
 import com.guiodes.multifunctionalcalculator.response.BhaskaraFormulaResponse
 import kotlin.math.sqrt
 
 class BhaskaraService(
     val bhaskaraFormulaResponse: BhaskaraFormulaResponse
 ) {
-    fun calculateBhaskaraService(calculateBhaskaraRequest: CalculateBhaskaraRequest):BhaskaraFormulaResponse {
+    fun calculateBhaskaraService(calculateBhaskaraRequest: CalculateThreeFieldsRequest):BhaskaraFormulaResponse {
         val a = calculateBhaskaraRequest.a
         val b = calculateBhaskaraRequest.b
         val c = calculateBhaskaraRequest.c
