@@ -1,13 +1,13 @@
 package com.guiodes.multifunctionalcalculator.service
 
-import com.guiodes.multifunctionalcalculator.request.CalculateBhaskaraRequest
+import com.guiodes.multifunctionalcalculator.request.CalculateThreeFieldsRequest
 import com.guiodes.multifunctionalcalculator.response.BhaskaraFormulaResponse
 import kotlin.math.sqrt
 import org.springframework.stereotype.Service
 
 @Service
 class BhaskaraService{
-    fun calculateBhaskaraService(calculateBhaskaraRequest: CalculateBhaskaraRequest):BhaskaraFormulaResponse {
+    fun calculateBhaskaraService(calculateBhaskaraRequest: CalculateThreeFieldsRequest):BhaskaraFormulaResponse {
         val message:String = "A fórmula de Bhaskara é uma fórmula quadrática que permite calcular as raízes de uma equação do segundo grau. A fórmula é dada por:\n" +
                 "\n" +
                 "x = (-b ± √(Δ)) / 2a\n" +
@@ -26,12 +26,11 @@ class BhaskaraService{
         val a = calculateBhaskaraRequest.a
         val b = calculateBhaskaraRequest.b
         val c = calculateBhaskaraRequest.c
-        val delta = b * b -4 * a * c;
-        val formulaDelta : String
+        val delta:Double = b * b - (4.0 * a * c)
         val formulaBhaskara : String
         val resolution = mutableListOf<String>()
         val result:String
-        formulaDelta = "$b² - 4*$a*$c)"
+        val formulaDelta : String = "$b² - 4*$a*$c)"
         val resolucaoDelta:Double = b*b
         val resolucaoDelta2:Double = 4*a*c
         val valorDelta: String = "Δ = $formulaDelta \n" +
