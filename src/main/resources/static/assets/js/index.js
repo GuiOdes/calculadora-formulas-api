@@ -2,6 +2,8 @@ import { API_URL, POST_METHOD } from './constants.js';
 import { bhaskaraValidation, pitagorasValidation } from './validators.js';
 
 $(document).ready(function() {
+    $("#navbar").load("components/navbar.html");
+
     $('.form-3-fields').submit(function(e) {
         $('#div-resolution').html('');
         $('#div-response').html('');
