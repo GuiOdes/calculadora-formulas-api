@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody
 class PitagorasController(val pitagorasService: PitagorasService) {
     @PostMapping("/pitagoras")
     fun calculatePitagoras(@RequestBody calculatePitagorasRequest: CalculateThreeFieldsRequest): PitagorasFormulaResponse {
-        return pitagorasService.
-
-
+        return pitagorasService.calcutePitagoras(calculatePitagorasRequest)
+    }
 }
