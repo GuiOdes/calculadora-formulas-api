@@ -32,11 +32,13 @@ $(document).ready(function() {
         
         sendRequest(POST_METHOD, `${API_URL}/${formSecondaryClass}`, JSON.stringify(request), (data) => {
             let resolution = data['resolution'];
-            let response = data['response'];
+            let response = data['result'];
 
             resolution.forEach(element => {
                 $('#div-resolution').append(`${element}<br>`);
             });
+
+            console.log(response);
 
             $('#div-response').append(`Resultado final: ${response}`);
 

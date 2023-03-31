@@ -27,4 +27,8 @@ body {
 
 ::placeholder {
     text-align: center; 
- }
+}
+
+#div-response {
+    margin-top: 3em;
+}
