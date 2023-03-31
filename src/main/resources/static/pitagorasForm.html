@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora acadêmica</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+
+<body>
+
+    <section id="navbar"></section>
+
+    <h1 class="text-center mt-5">Calculadora de Pitágoras</h1>
+    <h5 class="text-center text-danger">* Preencha os valores correspondentes e deixe o que você deseja descobrir em branco</h5>
+    <section id="bhaskaraFormSection" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
+        <div class="container">
+
+            <center>
+                <form class="form-3-fields pitagoras">
+                    <input id="A" class="form-control pitagoras mt-3" placeholder="Cateto A" name="a">
+                    <input id="B" class="form-control pitagoras mt-3" placeholder="Cateto B" name="b">
+                    <input id="C" class="form-control pitagoras mt-3" placeholder="Hipotenusa " name="c">
+
+                    <button type="submit" class="btn btn-dark mt-3">Calcular</button>
+                </form>
+            </center>
+        </div>
+    </section>
+
+    <section>
+        <div class="container text-center fw-bold">
+            <div id="div-resolution" class="fs-4"></div>
+            <div id="div-response" class="fs-2 text-danger"></div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="assets/js/index.js" type="module"></script>
+</body>
+
+</html>
