@@ -30,8 +30,13 @@ class BhaskaraService{
         val formulaDelta : String
         val formulaBhaskara : String
         val resolution = mutableListOf<String>()
-        val result = mutableListOf<Double>()
+        val result:String
         formulaDelta = "$b² - 4*$a*$c)"
+        val resolucaoDelta:Double = b*b
+        val resolucaoDelta2:Double = 4*a*c
+        val valorDelta: String = "Δ = $formulaDelta \n" +
+                "Δ = $resolucaoDelta - $resolucaoDelta2\n" +
+                "Δ = $delta"
         if (delta < 0){
             val messageSeg:String = "No seu caso, ficaria assim: "
             val messageTer:String = "Como o Δ tem valor negativo, logo sua equação não possui raiz"
@@ -39,13 +44,13 @@ class BhaskaraService{
             resolution.add(messageSeg)
             resolution.add(messageTer)
             resolution.add(formulaDelta)
-            result.add(delta)
+            result = valorDelta
             return BhaskaraFormulaResponse(
                 resolution, result
             )
         }
         else if(delta == 0.0){
-            formulaBhaskara = "(-$b/2*$a)"
+            formulaBhaskara = "-$b/(2*$a)"
             val x1 = -b/(2*a)
             val messageSeg:String = "No seu caso, ficaria assim: "
             val messageTer:String = "Como o Δ tem valor igual a 0, logo sua equação possui somente uma raiz"
@@ -54,14 +59,18 @@ class BhaskaraService{
             resolution.add(messageTer)
             resolution.add(formulaDelta)
             resolution.add(formulaBhaskara)
-            result.add(delta)
-            result.add(x1)
+            val valorXContinuacao:Double = 2*a
+            val valorX = "x' = $formulaBhaskara\n" +
+                    "x' = -b/$valorXContinuacao \n" +
+                    "x' = $x1"
+            result = "$valorDelta \n\n $valorX"
             return BhaskaraFormulaResponse(resolution, result)
         }
         else{
-            val formulax1 = "(-$b + √($delta)) / 2$a"
-            val formulax2 = "(-$b - √($delta)) / 2$a"
-            formulaBhaskara = "(-$b ± √($formulaDelta) / 2*$a"
+            val formulax1 = "(-$b + √($delta)) / (2*$a)"
+            val formulax2 = "(-$b - √($delta)) / (2*$a)"
+            formulaBhaskara = "(-$b ± √($formulaDelta) / (2*$a)"
+            val formulaBhaskaraX = "(-$b ± √($delta) / (2*$a)"
             val x1 = (-b + sqrt(delta))/(2*a)
             val x2 = (-b - sqrt(delta))/(2*a)
             val messageSeg:String = "No seu caso, ficaria assim: "
@@ -73,9 +82,22 @@ class BhaskaraService{
             resolution.add(formulaBhaskara)
             resolution.add(formulax1)
             resolution.add(formulax2)
-            result.add(delta)
-            result.add(x1)
-            result.add(x2)
+            val valorXDivisao:Double = 2*a
+            val valorRaiz:Double = sqrt(delta)
+            val valorBSomaRaiz:Double = -b + valorRaiz
+            val valorBSubtraiRaiz:Double = -b - valorRaiz
+            val valorX = "x = $formulaBhaskaraX\n" +
+                    "x' = $formulax1 \n" +
+                    "x' = -$b + $valorRaiz / (2*$a) \n" +
+                    "x' = $valorBSomaRaiz / (2*$a) \n " +
+                    "x' = $valorBSomaRaiz / $valorXDivisao \n" +
+                    "x' = $x1 \n \n" +
+                    "x\" = $formulax2 \n" +
+                    "x\" = -$b - $valorRaiz / (2*$a) \n" +
+                    "x\" = $valorBSubtraiRaiz / (2*$a) \n" +
+                    "x\" = $valorBSubtraiRaiz / $valorXDivisao \n" +
+                    "x\" = $x2"
+            result = "$valorDelta \n\n $valorX"
             return BhaskaraFormulaResponse(resolution, result)
         }
     }
