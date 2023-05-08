@@ -60,7 +60,7 @@ class BhaskaraService{
             resolution.add(formulaBhaskara)
             val valorXContinuacao:Double = 2*a
             val valorX = "x' = $formulaBhaskara\n" +
-                    "x' = -b/$valorXContinuacao \n" +
+                    "x' = -$b/$valorXContinuacao \n" +
                     "x' = $x1"
             result = "$valorDelta \n\n $valorX"
             return BhaskaraFormulaResponse(resolution, result)
