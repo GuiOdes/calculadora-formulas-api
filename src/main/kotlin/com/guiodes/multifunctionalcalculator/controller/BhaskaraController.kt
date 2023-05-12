@@ -1,5 +1,6 @@
 package com.guiodes.multifunctionalcalculator.controller
 
+import com.guiodes.multifunctionalcalculator.request.CalculateThreeFieldsRequest
 import com.guiodes.multifunctionalcalculator.response.BhaskaraFormulaResponse
 import com.guiodes.multifunctionalcalculator.service.BhaskaraService
 import org.springframework.web.bind.annotation.PostMapping
@@ -13,7 +14,7 @@ class BhaskaraController(
     val bhaskaraService: BhaskaraService
 ) {
     @PostMapping
-    fun calculateBhaskara(@RequestBody calculateBhaskaraRequest: CalculateBhaskaraRequest):BhaskaraFormulaResponse{
+    fun calculateBhaskara(@RequestBody calculateBhaskaraRequest: CalculateThreeFieldsRequest):BhaskaraFormulaResponse{
         return bhaskaraService.calculateBhaskaraService(calculateBhaskaraRequest)
     }
 }
