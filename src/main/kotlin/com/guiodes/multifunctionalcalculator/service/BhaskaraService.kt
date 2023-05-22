@@ -26,11 +26,11 @@ class BhaskaraService{
         val a = calculateBhaskaraRequest.a
         val b = calculateBhaskaraRequest.b
         val c = calculateBhaskaraRequest.c
-        val delta = b * b -4 * a * c;
+        val delta:Double = b * b - (4.0 * a * c)
         val formulaBhaskara : String
         val resolution = mutableListOf<String>()
         val result:String
-        val formulaDelta = "($b² - 4*$a*$c)"
+        val formulaDelta : String = "$b² - 4*$a*$c)"
         val resolucaoDelta:Double = b*b
         val resolucaoDelta2:Double = 4*a*c
         val valorDelta: String = "<br>Δ = $formulaDelta <br>" +
