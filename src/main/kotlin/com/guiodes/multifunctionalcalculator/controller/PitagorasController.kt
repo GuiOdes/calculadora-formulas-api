@@ -6,10 +6,13 @@
 //import org.springframework.stereotype.Controller
 //import org.springframework.web.bind.annotation.PostMapping
 //import org.springframework.web.bind.annotation.RequestBody
+//import org.springframework.web.bind.annotation.RequestMapping
+//import org.springframework.web.bind.annotation.RestController
 //
-//@Controller
+//@RequestMapping
+//@RestController("/pitagoras")
 //class PitagorasController(val pitagorasService: PitagorasService) {
-//    @PostMapping("/pitagoras")
+//    @PostMapping
 //    fun calculatePitagoras(@RequestBody calculatePitagorasRequest: CalculateThreeFieldsRequest): PitagorasFormulaResponse {
 //        return pitagorasService.calcutePitagoras(calculatePitagorasRequest)
 //    }
