@@ -3,7 +3,6 @@ package com.guiodes.multifunctionalcalculator.service
 import com.guiodes.multifunctionalcalculator.request.InterestCalculateRequest
 import com.guiodes.multifunctionalcalculator.response.InterestFormulaResponse
 import org.springframework.stereotype.Service
-import kotlin.math.log
 import kotlin.math.log10
 import kotlin.math.pow
 
@@ -60,7 +59,7 @@ class InterestService(
             capital = calculateCapitalCaseRateNullOrDurationNullSimple(amount!!, interest!!)
         }
         if (interest == null && rate == null || interest == null && duration == null){
-            interest = calculateCapitalCaseRateNullOrDurationNullOrCompoundInterest(capital!!, amount!!)
+            interest = calculateInterestCaseRateNullOrDurationNullCompoundInterest(capital!!, amount!!)
         }
         if (rate == null){
             rate = calculateRateSimple(interest!!, capital!!, duration!!)
@@ -107,7 +106,7 @@ class InterestService(
             amount = calculateAmountCompoundInterest(capital!!, rate!!, duration!!)
         }
         if (interest == null){
-            interest = calculateCapitalCaseRateNullOrDurationNullOrCompoundInterest(capital!!, amount!!)
+            interest = calculateInterestCaseRateNullOrDurationNullCompoundInterest(capital!!, amount!!)
         }
 
         result = "Interest = " + interest +
@@ -138,15 +137,15 @@ class InterestService(
         return amount - interest
     }
     private fun calculateRateSimple(interest: Double, capital: Double, duration: Double): Double {
-        return interest / (capital!! * duration!!)
+        return interest / (capital * duration)
     }
     private fun calculateDurationSimple(interest: Double, capital: Double, rate: Double): Double {
-        return interest!! / (capital!! * rate!!)
+        return interest / (capital * rate)
     }
     private fun calculateInterestSimple(capital: Double, rate: Double, duration: Double): Double {
         return capital * rate * duration
     }
-    private fun calculateCapitalCaseRateNullOrDurationNullOrCompoundInterest(capital: Double, amount: Double): Double{
+    private fun calculateInterestCaseRateNullOrDurationNullCompoundInterest(capital: Double, amount: Double): Double{
         return amount-capital
     }
 
