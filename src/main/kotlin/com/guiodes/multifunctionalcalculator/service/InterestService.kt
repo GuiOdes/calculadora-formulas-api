@@ -93,8 +93,10 @@ class InterestService(
         var amount = calculateCompoundInterest.amount
         var rate = calculateCompoundInterest.rate
         var duration = calculateCompoundInterest.duration
+        resolution.add(DefaultTextCompoundInterest())
         if (capital == null){
             capital = calculateCapitalCompoundInterst(amount!!, rate!!, duration!!)
+            resolution.add(calculateCapitalCompoundInterstText(amount, rate, duration))
         }
         if (rate == null){
             rate = calculateRateCompoundInterst(amount!!, capital!!, duration!!)
@@ -147,6 +149,26 @@ class InterestService(
     }
     private fun calculateInterestCaseRateNullOrDurationNullCompoundInterest(capital: Double, amount: Double): Double{
         return amount-capital
+    }
+    private fun DefaultTextCompoundInterest():String{
+        return "A formula do juros composto é demonimada pela formula M = C(1+i)<sup>T</sup> <br>" +
+                "Onde: M = Montante é o valor total acumulado, incluindo o principal e juros<br>" +
+                "C = Capital inicial ou Principal é o valor que foi investido ou emprestado<br>" +
+                "i = taxa de juros aplicada ao capital, exmplo: 0,05 para 5% <br>" +
+                "T = periodo de tempo o qual o dinherio ficou emprestado ou investido<br<br>+"
+    }
+    private fun calculateCapitalCompoundInterstText(amount: Double, rate: Double, duration: Double):String{
+        val calculoTaxaMais1:Double = 1+rate
+        val calculoTempoSobreTaxa:Double = calculoTaxaMais1.pow(duration)
+        val capital:Double = calculateCapitalCompoundInterst(amount, rate, duration)
+        return "Jubstituindo os valores, ficara assim: <br>" +
+                "M = ${amount}, C = ?, i = ${rate}, t = ${duration}, tempo comvertido para meses<br<br>" +
+                "Como queremos calcular o Capital Inicial, primeiro tempos que trabalhar a formula<br>" +
+                "${amount} = C(1+${rate})<sup>${duration}</sup><br>" +
+                "${amount} = C(${calculoTaxaMais1})<sup>${duration}</sup><br>" +
+                "${amount} = C(${calculoTempoSobreTaxa}<br>" +
+                "C = ${amount}/${(calculoTempoSobreTaxa)}<br>" +
+                "C = ${capital} <br>"
     }
 
 }
