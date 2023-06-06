@@ -4,7 +4,7 @@ import { bhaskaraValidation, interestValidation, pitagorasValidation } from './v
 $(document).ready(function() {
     $("#navbar").load("components/navbar.html");
 
-    $('.form-simple-interest').submit(function(e) {
+    $('.interest-form').submit(function(e) {
         $('#div-resolution').html('');
         $('#div-response').html('');
 
