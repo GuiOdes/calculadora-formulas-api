@@ -15,7 +15,7 @@ class InterestCalculateController(
 ) {
     @PostMapping("/simple")
     fun calculateInterestSimple(@RequestBody calculateInterestSimple: InterestCalculateRequest):InterestFormulaResponse {
-        return interestService.calculeteInterestSimple(calculateInterestSimple)
+        return interestService.calculateInterestSimple(calculateInterestSimple)
     }
     @PostMapping("/compound")
     fun calculateCompoundInterest(@RequestBody calculateCompoundInterest: InterestCalculateRequest):InterestFormulaResponse{
