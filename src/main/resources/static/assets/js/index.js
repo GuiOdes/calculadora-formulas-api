@@ -11,17 +11,18 @@ $(document).ready(function() {
         e.preventDefault();
 
         let form = $(this);
-      
-        var formData = form.serializeArray().map((it) => it['value']);
+
+        const formData = form.serializeArray().map((it) => it['value']);
 
         let isSimpleInterest = formData[5];
+        let isTimeUnitInMonths = $('input[name=timeUnit]:checked', '.interest-form').val() === 'month';
 
         const request = {
             interest: formData[0],
             amount: formData[1],
             rate: formData[2],
             capital: formData[3],
-            duration: formData[4],
+            duration: isTimeUnitInMonths ? formData[4] : formData[4]*12,
         };
 
         interestValidation(request);
@@ -49,8 +50,8 @@ $(document).ready(function() {
         e.preventDefault();
 
         let form = $(this);
-      
-        var formData = form.serializeArray().map((it) => it['value']);
+
+        const formData = form.serializeArray().map((it) => it['value']);
 
         const request = {
             a: formData[0],
@@ -66,7 +67,7 @@ $(document).ready(function() {
                 break;
             default:
                 pitagorasValidation(request);
-        };
+        }
         
         sendRequest(POST_METHOD, `${API_URL}/${formSecondaryClass}`, JSON.stringify(request), (data) => {
             let resolution = data['resolution'];
