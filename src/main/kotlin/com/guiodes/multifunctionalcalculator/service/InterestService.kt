@@ -76,11 +76,11 @@ class InterestService(
             amount = calculateAmountSimple(capital!!, interest)
             resolution.add(calculateAmountSimpleInterestText(capital, interest))
         }
-        val result = "Interest = " + interest +
-                " <br> amount = " + amount +
-                "<br> capital = " + capital +
-                "<br> rate = " + rate +
-                "<br> duration = " + duration
+        val result = "Juros = " + interest +
+                " <br> Montante = " + amount +
+                "<br> Capital = " + capital +
+                "<br> Taxa = " + rate +
+                "<br> Duração = " + duration
         return InterestFormulaResponse(resolution, result)
     }
 
@@ -128,18 +128,16 @@ class InterestService(
 
 
     }
-
     private fun defaultTextSimpleInterest(): String {
-        return "A formula do juros simples é demonimada pela formula j = C.i.t <br>" +
-                "Onde: j = é o valor dos juros acumulados ao longo do período.<br>" +
+        return "A formula do juros simples é demonimada pela formula J = C.i.t <br>" +
+                "Onde: J = é o valor dos juros acumulados ao longo do período.<br>" +
                 "C = Capital inicial ou Principal é o valor que foi investido ou emprestado.<br>" +
                 "i = taxa de juros aplicada ao capital, exmplo: 0,05 para 5%. <br>" +
-                "T = periodo de tempo o qual o dinherio ficou emprestado ou investido.<br<br>" +
-                "Como você pode analisar, essa formula não entrega o M, no caso, o montante, mas podemos calcular da seguinte forma:<br>" +
-                "M = C + j <br>" +
+                "t = periodo de tempo o qual o dinherio ficou emprestado ou investido.<br<br>" +
+                "Como podemos analisar, essa formula não entrega o M, no caso, o montante, mas podemos calcular da seguinte forma:<br>" +
+                "M = C + J <br>" +
                 "Montante é o valor total acumulado, incluindo o principal e os juros.<br><br>"
     }
-
     private fun calculateCapitalCaseAmountIsNullInterestSimpleText(
         interest: Double,
         rate: Double,
@@ -148,11 +146,11 @@ class InterestService(
         val calculoTaxaVezesTempo = rate * duration
         return "Sabendo que J = ${interest}, C = ?, i = ${rate}, t = $duration <br>" +
                 "Substituindo na formula ficaria: <br>" +
-                "$interest = C.${rate}.${duration}<br>" +
-                "Logo, queremos calcular o capital inicial ou o principal<br>" +
-                "Para isso, precisamos isolar o elemento 'C', mas antes vamos trabalhar a fórmula<br>" +
-                "${interest} = C.${calculoTaxaVezesTempo}<br>" +
-                "C = ${interest}/${calculoTaxaVezesTempo}<br>" +
+                "$interest = C x $rate x $duration <br>" +
+                "Logo queremos calcular o capital inicial ou o principal <br>" +
+                "Para isso precisamos isolar o elemento 'C', mas antes vamos trabalhar a fórmula:<br>" +
+                "$interest = C x $calculoTaxaVezesTempo <br>" +
+                "C = $interest / $calculoTaxaVezesTempo<br>" +
                 "C = ${calculateCapitalCaseAmountIsNullInterestSimple(interest, rate, duration)} <br><br>"
     }
 
@@ -160,9 +158,9 @@ class InterestService(
         val interest = amount - capital
         return "Sabendo que M = $amount, C = $capital, J = ? <br>" +
                 "Substituindo na formula ficaria: <br>" +
-                "$amount = $capital + J<br>" +
-                "Isolamos os juros para descobrir ele, passando o capital para o outro lado:<br>" +
-                "J = {$amount} - $capital" +
+                "$amount = $capital + J <br>" +
+                "Isolamos os juros para descobrir ele, passando o capital para o outro lado: <br>" +
+                "J = $amount - $capital" +
                 "C = ${interest}<br><br>"
     }
 
@@ -170,27 +168,31 @@ class InterestService(
         val rate = interest / (capital * duration)
         return "Sabendo que J = $interest, C = $capital, i = ?, T = $duration <br>" +
                 "Substituindo na formula ficaria: <br>" +
-                "$interest = $capital.i.$duration<br>" +
+                "$interest = $capital x i x $duration<br>" +
                 "Passa a taxa para antes da igualdade, e os juros para o outro lado dividindo, ficaria assim:<br>" +
-                "i = $interest/ $capital * $duration" +
+                "i = ($interest / $capital) x $duration <br>" +
+                "Basta dividir os juros pelo capital e multiplicar pela duração, e teremos a taxa de juros:<br>" +
                 "i = $rate <br><br>"
     }
-
     private fun calculateDurationSimpleInterestText(interest: Double, capital: Double, rate: Double): String {
         val duration = interest / (capital * rate)
+        val capxrate = capital * rate
         return "Sabendo que J = $interest, C = $capital, i = $rate, T = ? <br>" +
                 "Substituindo na formula ficaria: <br>" +
-                "$interest = $capital.$rate.t<br>" +
-                "Passa a taxa para antes da igualdade, e os juros para o outro lado dividindo, ficaria assim:<br>" +
-                "i = $interest/ $capital * $rate<br>" +
-                "i = $duration <br><br>"
+                "$interest = $capital x $rate x t<br>" +
+                "multiplique o capital pela taxa e ficará da seguinte forma:<br>" +
+                "$interest = $capxrate x t<br>" +
+                "Isole o expoente t e passe o juros que estava multiplicando, divindo para o outro lado:<br>" +
+                "t = $interest / $capxrate<br>" +
+                "Após feita a divisão, terá a duração:<br>"+
+                "t = $duration <br><br>"
     }
 
     private fun calculateInterestSimpleInterestText(capital: Double, rate: Double, duration: Double): String {
         val interest = capital * rate * duration
         return "Sabendo que J = ?, C = $capital, i = $rate, T = $duration <br>" +
                 "Substituindo na formula ficaria: <br>" +
-                "J = $capital.$rate.$duration<br>" +
+                "J = $capital x $rate x $duration<br>" +
                 "Sendo assim basta multiplicar o capital, a taxa e a duração:<br>" +
                 "J = $interest<br><br>"
     }
@@ -210,7 +212,7 @@ class InterestService(
                 "Substituindo na formula ficaria: <br>" +
                 "$amount = C + ${interest}<br>" +
                 "Isolamos o capital inicial para descobrir ele, passando o juros para o outro lado:<br>" +
-                "C = {$amount} - $interest" +
+                "C = {$amount} - $interest <br>" +
                 "C = ${capital}<br><br>"
     }
 
@@ -223,9 +225,9 @@ class InterestService(
                 "Como queremos calcular o Capital Inicial, primeiro trabalhamos a formula:<br>" +
                 "${amount} = C(1+${rate})<sup>${duration}</sup><br>" +
                 "Fazemos a soma e continuamos o calculo:" +
-                "${amount} = C(${calculoTaxaMais1})<sup>${duration}</sup><br>" +
+                "$amount = C(${calculoTaxaMais1})<sup>${duration}</sup><br>" +
                 "Após somada a taxa mais um, elevamos o valor a duração:" +
-                "${amount} = C(${calculoTempoSobreTaxa}<br>" +
+                "$amount = C(${calculoTempoSobreTaxa}<br>" +
                 "Feito isso, passamos a incognita para o outro lado, e o montante passa dividindo:<br>" +
                 "C = ${amount}/${(calculoTempoSobreTaxa)}<br>" +
                 "tendo como resultado o capital inicial:<br>" +
