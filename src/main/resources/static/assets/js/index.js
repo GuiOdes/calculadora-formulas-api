@@ -20,7 +20,7 @@ $(document).ready(function() {
         const request = {
             interest: formData[0],
             amount: formData[1],
-            rate: formData[2],
+            rate: isTimeUnitInMonths ? formData[2] : formData[2]*12,
             capital: formData[3],
             duration: isTimeUnitInMonths ? formData[4] : formData[4]*12,
         };
