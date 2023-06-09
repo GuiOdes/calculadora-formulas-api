@@ -25,11 +25,11 @@ $(document).ready(function() {
             duration: isTimeUnitInMonths ? formData[4] : formData[4]*12,
         };
 
-        interestValidation(request);
+        // interestValidation(request);
 
         let interestType = isSimpleInterest ? "simple" : "compound";
 
-        sendRequest(POST_METHOD, `${API_URL}/${interestType}`, JSON.stringify(request), (data) => {
+        sendRequest(POST_METHOD, `${API_URL}/interest/${interestType}`, JSON.stringify(request), (data) => {
             let resolution = data['resolution'];
             let response = data['result'];
 
@@ -39,7 +39,7 @@ $(document).ready(function() {
 
             console.log(response);
 
-            $('#div-response').append(`Resultado final: ${response}`);
+            $('#div-response').append(`Resultado final: <br>${response}`);
         })
     });
 
