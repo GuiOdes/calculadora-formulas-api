@@ -1,10 +1,10 @@
-import { API_URL, POST_METHOD } from './constants.js';
-import { bhaskaraValidation, interestValidation, pitagorasValidation } from './validators.js';
+import {API_URL, POST_METHOD} from './constants.js';
+import {bhaskaraValidation, interestValidation, pitagorasValidation} from './validators.js';
 
-$(document).ready(function() {
+$(document).ready(function () {
     $("#navbar").load("components/navbar.html");
 
-    $('.interest-form').submit(function(e) {
+    $('.interest-form').submit(function (e) {
         $('#div-resolution').html('');
         $('#div-response').html('');
 
@@ -20,9 +20,9 @@ $(document).ready(function() {
         const request = {
             interest: formData[0],
             amount: formData[1],
-            rate: isTimeUnitInMonths ? formData[2] : formData[2]*12,
+            rate: isTimeUnitInMonths ? formData[2] : formData[2] * 12,
             capital: formData[3],
-            duration: isTimeUnitInMonths ? formData[4] : formData[4]*12,
+            duration: isTimeUnitInMonths ? formData[4] : formData[4] * 12,
         };
 
         // interestValidation(request);
@@ -43,7 +43,7 @@ $(document).ready(function() {
         })
     });
 
-    $('.form-3-fields').submit(function(e) {
+    $('.form-3-fields').submit(function (e) {
         $('#div-resolution').html('');
         $('#div-response').html('');
 
@@ -61,14 +61,14 @@ $(document).ready(function() {
 
         let formSecondaryClass = form.attr('class').split(' ')[1];
 
-        switch(formSecondaryClass) {
+        switch (formSecondaryClass) {
             case 'bhaskara':
                 bhaskaraValidation(request);
                 break;
             default:
                 pitagorasValidation(request);
         }
-        
+
         sendRequest(POST_METHOD, `${API_URL}/${formSecondaryClass}`, JSON.stringify(request), (data) => {
             let resolution = data['resolution'];
             let response = data['result'];
@@ -91,7 +91,7 @@ function sendRequest(method, url, data, success) {
         url: url,
         data: data,
         contentType: "application/json",
-        success: function(response) {
+        success: function (response) {
             if (typeof success === 'function') {
                 success(response);
             }

@@ -14,7 +14,7 @@ class BhaskaraController(
     val bhaskaraService: BhaskaraService
 ) {
     @PostMapping
-    fun calculateBhaskara(@RequestBody calculateBhaskaraRequest: CalculateThreeFieldsRequest):BhaskaraFormulaResponse{
+    fun calculateBhaskara(@RequestBody calculateBhaskaraRequest: CalculateThreeFieldsRequest): BhaskaraFormulaResponse {
         return bhaskaraService.calculateBhaskaraService(calculateBhaskaraRequest)
     }
 }

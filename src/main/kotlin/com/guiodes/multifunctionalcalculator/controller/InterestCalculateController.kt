@@ -14,11 +14,12 @@ class InterestCalculateController(
     val interestService: InterestService
 ) {
     @PostMapping("/simple")
-    fun calculateInterestSimple(@RequestBody calculateInterestSimple: InterestCalculateRequest):InterestFormulaResponse {
+    fun calculateInterestSimple(@RequestBody calculateInterestSimple: InterestCalculateRequest): InterestFormulaResponse {
         return interestService.calculateInterestSimple(calculateInterestSimple)
     }
+
     @PostMapping("/compound")
-    fun calculateCompoundInterest(@RequestBody calculateCompoundInterest: InterestCalculateRequest):InterestFormulaResponse{
+    fun calculateCompoundInterest(@RequestBody calculateCompoundInterest: InterestCalculateRequest): InterestFormulaResponse {
         return interestService.calculateCompoundInterest(calculateCompoundInterest)
     }
 }

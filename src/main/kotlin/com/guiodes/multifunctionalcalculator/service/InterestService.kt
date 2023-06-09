@@ -9,7 +9,7 @@ import kotlin.math.pow
 @Service
 class InterestService(
 ) {
-    private fun isValidFields(calculateInterestSimple: InterestCalculateRequest, isInterestSimple:Boolean): Boolean {
+    private fun isValidFields(calculateInterestSimple: InterestCalculateRequest, isInterestSimple: Boolean): Boolean {
         val isNullField = mutableMapOf<String, Boolean>()
         isNullField["interest"] = calculateInterestSimple.interest == null
         isNullField["amount"] = calculateInterestSimple.amount == null
@@ -19,30 +19,25 @@ class InterestService(
         var isValidFields = true
         if (isNullField["interest"]!! && isNullField["capital"]!! && isInterestSimple) {
             isValidFields = false
-        }
-        else if (isNullField["capital"]!! && isNullField["amount"]!! && !isInterestSimple){
+        } else if (isNullField["capital"]!! && isNullField["amount"]!! && !isInterestSimple) {
             isValidFields = false
-        }
-        else if (isNullField["rate"]!! && isNullField["interest"]!! && isNullField["amount"]!! && isInterestSimple){
+        } else if (isNullField["rate"]!! && isNullField["interest"]!! && isNullField["amount"]!! && isInterestSimple) {
             isValidFields = false
-        }
-        else if (isNullField["rate"]!! && isNullField["capital"]!! && isNullField["amount"]!!){
+        } else if (isNullField["rate"]!! && isNullField["capital"]!! && isNullField["amount"]!!) {
             isValidFields = false
-        }
-        else if (isNullField["duration"]!! && isNullField["interest"]!! && isNullField["amount"]!! && isInterestSimple){
+        } else if (isNullField["duration"]!! && isNullField["interest"]!! && isNullField["amount"]!! && isInterestSimple) {
             isValidFields = false
-        }
-        else if (isNullField["duration"]!! && isNullField["capital"]!! && isNullField["amount"]!!){
+        } else if (isNullField["duration"]!! && isNullField["capital"]!! && isNullField["amount"]!!) {
             isValidFields = false
-        }
-        else if (isNullField["rate"]!! && isNullField["duration"]!!){
+        } else if (isNullField["rate"]!! && isNullField["duration"]!!) {
             isValidFields = false
         }
         return isValidFields
     }
-    fun calculateInterestSimple(calculateInterestSimple:InterestCalculateRequest):InterestFormulaResponse {
+
+    fun calculateInterestSimple(calculateInterestSimple: InterestCalculateRequest): InterestFormulaResponse {
         val isInterestSimple = true
-        if (!isValidFields(calculateInterestSimple,isInterestSimple)) {
+        if (!isValidFields(calculateInterestSimple, isInterestSimple)) {
             throw RuntimeException("Campos Invalidos")
         }
         val resolution = mutableListOf<String>()
@@ -53,47 +48,46 @@ class InterestService(
         var duration = calculateInterestSimple.duration
 //        j=c.i.t
         resolution.add(defaultTextSimpleInterest())
-        if (capital == null && amount == null){
+        if (capital == null && amount == null) {
             capital = calculateCapitalCaseAmountIsNullInterestSimple(interest!!, rate!!, duration!!)
             resolution.add(calculateCapitalCaseAmountIsNullInterestSimpleText(interest, rate, duration))
         }
-        if ((capital == null && rate == null) || (capital == null && duration == null)){
+        if ((capital == null && rate == null) || (capital == null && duration == null)) {
             capital = calculateCapitalCaseRateNullOrDurationNullSimple(amount!!, interest!!)
             resolution.add(calculateCapitalCaseRateNullOrDurationNullSimpleText(amount, interest))
         }
-        if (interest == null && rate == null || interest == null && duration == null){
+        if (interest == null && rate == null || interest == null && duration == null) {
             interest = calculateInterestCaseRateNullOrDurationNullInterest(capital!!, amount!!)
             resolution.add(calculateInterestCaseRateNullOrDurationNullInterestText(capital, amount))
         }
-        if (rate == null){
+        if (rate == null) {
             rate = calculateRateSimple(interest!!, capital!!, duration!!)
             resolution.add(calculateRateSimpleInterestText(interest, capital, duration))
         }
-        if (duration == null){
+        if (duration == null) {
             duration = calculateDurationSimple(interest!!, capital!!, rate)
-            resolution.add(calculateDurationSimpleInterestText(interest,capital,rate))
+            resolution.add(calculateDurationSimpleInterestText(interest, capital, rate))
         }
-        if (interest == null){
+        if (interest == null) {
             interest = calculateInterestSimple(capital!!, rate, duration)
             resolution.add(calculateInterestSimpleInterestText(capital, rate, duration))
         }
-        if (amount == null){
+        if (amount == null) {
             amount = calculateAmountSimple(capital!!, interest)
             resolution.add(calculateAmountSimpleInterestText(capital, interest))
         }
         val result = "Interest = " + interest +
                 " <br> amount = " + amount +
-                "<br> capital = "+ capital+
-                "<br> rate = "+rate+
-                "<br> duration = "+duration
+                "<br> capital = " + capital +
+                "<br> rate = " + rate +
+                "<br> duration = " + duration
         return InterestFormulaResponse(resolution, result)
     }
 
 
-
-    fun calculateCompoundInterest(calculateCompoundInterest: InterestCalculateRequest):InterestFormulaResponse{
+    fun calculateCompoundInterest(calculateCompoundInterest: InterestCalculateRequest): InterestFormulaResponse {
         val isInterestSimple = false
-        if (!isValidFields(calculateCompoundInterest, isInterestSimple)){
+        if (!isValidFields(calculateCompoundInterest, isInterestSimple)) {
             throw RuntimeException("Campos Invalidos")
         }
         val resolution = mutableListOf<String>()
@@ -103,38 +97,39 @@ class InterestService(
         var rate = calculateCompoundInterest.rate
         var duration = calculateCompoundInterest.duration
         resolution.add(defaultTextCompoundInterest())
-        if (capital == null){
+        if (capital == null) {
             capital = calculateCapitalCompoundInterest(amount!!, rate!!, duration!!)
             resolution.add(calculateCapitalCompoundInterestText(amount, rate, duration))
         }
-        if (rate == null){
+        if (rate == null) {
             rate = calculateRateCompoundInterest(amount!!, capital, duration!!)
             resolution.add(calculateRateCompoundInterestText(amount, capital, duration))
         }
-        if (duration == null){
+        if (duration == null) {
             duration = calculateDurationCompoundInterst(amount!!, capital, rate)
             resolution.add(calculateDurationCompoundInterestText(amount, capital, rate))
         }
-        if (amount == null){
+        if (amount == null) {
             amount = calculateAmountCompoundInterest(capital, rate, duration)
-            resolution.add(calculateAmountCompoundInterestText(capital,rate,duration))
+            resolution.add(calculateAmountCompoundInterestText(capital, rate, duration))
 
         }
-        if (interest == null){
+        if (interest == null) {
             interest = calculateInterestCaseRateNullOrDurationNullInterest(capital, amount)
-            resolution.add(calculateInterestCaseRateNullOrDurationNullInterestText(capital,amount))
+            resolution.add(calculateInterestCaseRateNullOrDurationNullInterestText(capital, amount))
         }
 
         val result = "Interest = " + interest +
                 " <br>amount = " + amount +
-                "<br>capital = "+ capital+
-                "<br>rate = "+rate+
-                "<br>duration = "+duration
+                "<br>capital = " + capital +
+                "<br>rate = " + rate +
+                "<br>duration = " + duration
         return InterestFormulaResponse(resolution, result)
 
 
     }
-    private fun defaultTextSimpleInterest():String{
+
+    private fun defaultTextSimpleInterest(): String {
         return "A formula do juros simples é demonimada pela formula j = C.i.t <br>" +
                 "Onde: j = é o valor dos juros acumulados ao longo do período.<br>" +
                 "C = Capital inicial ou Principal é o valor que foi investido ou emprestado.<br>" +
@@ -145,8 +140,12 @@ class InterestService(
                 "Montante é o valor total acumulado, incluindo o principal e os juros.<br><br>"
     }
 
-    private fun calculateCapitalCaseAmountIsNullInterestSimpleText(interest: Double, rate: Double, duration: Double):String{
-        val calculoTaxaVezesTempo = rate*duration
+    private fun calculateCapitalCaseAmountIsNullInterestSimpleText(
+        interest: Double,
+        rate: Double,
+        duration: Double
+    ): String {
+        val calculoTaxaVezesTempo = rate * duration
         return "Sabendo que J = ${interest}, C = ?, i = ${rate}, t = $duration <br>" +
                 "Substituindo na formula ficaria: <br>" +
                 "$interest = C.${rate}.${duration}<br>" +
@@ -157,7 +156,7 @@ class InterestService(
                 "C = ${calculateCapitalCaseAmountIsNullInterestSimple(interest, rate, duration)} <br><br>"
     }
 
-    private fun calculateInterestCaseRateNullOrDurationNullInterestText(capital: Double, amount: Double):String{
+    private fun calculateInterestCaseRateNullOrDurationNullInterestText(capital: Double, amount: Double): String {
         val interest = amount - capital
         return "Sabendo que M = $amount, C = $capital, J = ? <br>" +
                 "Substituindo na formula ficaria: <br>" +
@@ -167,7 +166,7 @@ class InterestService(
                 "C = ${interest}<br><br>"
     }
 
-    private fun calculateRateSimpleInterestText(interest: Double, capital: Double, duration: Double):String{
+    private fun calculateRateSimpleInterestText(interest: Double, capital: Double, duration: Double): String {
         val rate = interest / (capital * duration)
         return "Sabendo que J = $interest, C = $capital, i = ?, T = $duration <br>" +
                 "Substituindo na formula ficaria: <br>" +
@@ -176,7 +175,8 @@ class InterestService(
                 "i = $interest/ $capital * $duration" +
                 "i = $rate <br><br>"
     }
-    private fun calculateDurationSimpleInterestText(interest: Double, capital: Double, rate: Double):String{
+
+    private fun calculateDurationSimpleInterestText(interest: Double, capital: Double, rate: Double): String {
         val duration = interest / (capital * rate)
         return "Sabendo que J = $interest, C = $capital, i = $rate, T = ? <br>" +
                 "Substituindo na formula ficaria: <br>" +
@@ -185,7 +185,8 @@ class InterestService(
                 "i = $interest/ $capital * $rate<br>" +
                 "i = $duration <br><br>"
     }
-    private fun calculateInterestSimpleInterestText(capital: Double, rate: Double, duration: Double):String{
+
+    private fun calculateInterestSimpleInterestText(capital: Double, rate: Double, duration: Double): String {
         val interest = capital * rate * duration
         return "Sabendo que J = ?, C = $capital, i = $rate, T = $duration <br>" +
                 "Substituindo na formula ficaria: <br>" +
@@ -193,7 +194,8 @@ class InterestService(
                 "Sendo assim basta multiplicar o capital, a taxa e a duração:<br>" +
                 "J = $interest<br><br>"
     }
-    private fun calculateAmountSimpleInterestText(capital: Double, interest: Double):String{
+
+    private fun calculateAmountSimpleInterestText(capital: Double, interest: Double): String {
         val amount = capital + interest
         return "Sabendo que M = ?, C = $capital, J = $interest <br>" +
                 "Substituindo na formula ficaria: <br>" +
@@ -201,7 +203,8 @@ class InterestService(
                 "Dessa forma, basta somar o capital mais os juros:<br>" +
                 "M = $amount<br><br>"
     }
-    private fun calculateCapitalCaseRateNullOrDurationNullSimpleText(amount: Double, interest: Double):String{
+
+    private fun calculateCapitalCaseRateNullOrDurationNullSimpleText(amount: Double, interest: Double): String {
         val capital = amount - interest
         return "Sabendo que M = ${amount}, C = ?, J = $interest <br>" +
                 "Substituindo na formula ficaria: <br>" +
@@ -212,9 +215,9 @@ class InterestService(
     }
 
 
-    private fun calculateCapitalCompoundInterestText(amount: Double, rate: Double, duration: Double):String{
-        val calculoTaxaMais1:Double = 1+rate
-        val calculoTempoSobreTaxa:Double = calculoTaxaMais1.pow(duration)
+    private fun calculateCapitalCompoundInterestText(amount: Double, rate: Double, duration: Double): String {
+        val calculoTaxaMais1: Double = 1 + rate
+        val calculoTempoSobreTaxa: Double = calculoTaxaMais1.pow(duration)
         return "Substituindo os valores, ficara assim: <br>" +
                 "M = ${amount}, C = ?, i = ${rate}, t = ${duration}, tempo e taxa convertidos em meses<br<br>" +
                 "Como queremos calcular o Capital Inicial, primeiro trabalhamos a formula:<br>" +
@@ -230,7 +233,7 @@ class InterestService(
     }
 
 
-    private fun calculateRateCompoundInterestText(amount: Double, capital: Double, duration: Double):String{
+    private fun calculateRateCompoundInterestText(amount: Double, capital: Double, duration: Double): String {
         return "Substituindo os valores, ficara assim: <br>" +
                 "M = ${amount}, C = ${capital}, i = ?, t = ${duration}, tempo e taxa convertidos para meses<br<br>" +
                 "Como queremos calcular a taxa de juros, primeiro temos que trabalhar a formula:<br>" +
@@ -249,7 +252,7 @@ class InterestService(
                 "i = ${calculateRateCompoundInterest(amount, capital, duration)}<br><br>"
     }
 
-    private fun calculateDurationCompoundInterestText(amount: Double, capital: Double, rate: Double):String{
+    private fun calculateDurationCompoundInterestText(amount: Double, capital: Double, rate: Double): String {
         return "Substituindo os valores, vai ficar assim: <br>" +
                 "M = ${amount}, C = ${capital}, i = ${rate}, t = ?, tempo e taxa convertidos para meses<br<br>" +
                 "Como queremos calcular o tempo/prazo, primeiro temos que trabalhar a formula:<br>" +
@@ -276,11 +279,12 @@ class InterestService(
                 "${log10(amountDividedByCapital(amount, capital))} = t.${log10(ratePlusOne(rate))}<br>" +
                 "${log10(amountDividedByCapital(amount, capital))}/${log10(ratePlusOne(rate))} = t<br>" +
                 "Seguindo os calculos de log e as propriedades, teremos o valor do tempo/prazo:<br>" +
-                "t = ${(log10(amountDividedByCapital(amount, capital)))/(log10(ratePlusOne(rate)))} <br>"
+                "t = ${(log10(amountDividedByCapital(amount, capital))) / (log10(ratePlusOne(rate)))} <br>"
     }
-    private fun calculateAmountCompoundInterestText(capital: Double, rate: Double, duration: Double):String{
-        val rateMaisUm = rate+1
-        val rateMaisUmDuration = (rate+1).pow(duration)
+
+    private fun calculateAmountCompoundInterestText(capital: Double, rate: Double, duration: Double): String {
+        val rateMaisUm = rate + 1
+        val rateMaisUmDuration = (rate + 1).pow(duration)
         return "Substituindo os valores, ficara assim: <br>" +
                 "M = ?, C = ${capital}, i = $rate, n = $duration, tempo e taxa convertidos para meses<br<br>" +
                 "Como queremos calcular o montante eleve (1 + i) à potência de n:<br>" +
@@ -290,9 +294,10 @@ class InterestService(
                 "Após elevar, faça a multiplicação do capital:<br>" +
                 "M = $capital.$rateMaisUmDuration<br>" +
                 "Quando multiplicamos, temos como resultado o montante:<br>" +
-                "M = ${calculateAmountCompoundInterest(capital,rate,duration)}<br><br>"
+                "M = ${calculateAmountCompoundInterest(capital, rate, duration)}<br><br>"
     }
-    private fun defaultTextCompoundInterest():String{
+
+    private fun defaultTextCompoundInterest(): String {
         return "A formula do juros composto é demonimada pela formula M = C(1+i)<sup>n</sup> <br>" +
                 "Onde: M = Montante é o valor total acumulado, incluindo o principal e juros<br>" +
                 "C = Capital inicial ou Principal é o valor que foi investido ou emprestado<br>" +
@@ -300,46 +305,63 @@ class InterestService(
                 "n = periodo de tempo o qual o dinherio ficou emprestado ou investido<br<br>"
     }
 
-    private fun calculateAmountCompoundInterest(capital: Double, rate: Double, duration: Double):Double{
-        return capital*((1+rate).pow(duration))
+    private fun calculateAmountCompoundInterest(capital: Double, rate: Double, duration: Double): Double {
+        return capital * ((1 + rate).pow(duration))
     }
+
     private fun calculateAmountSimple(capital: Double, interest: Double): Double {
         return interest + capital
     }
+
     private fun calculateCapitalCaseRateNullOrDurationNullSimple(amount: Double, interest: Double): Double {
         return amount - interest
     }
+
     private fun calculateRateSimple(interest: Double, capital: Double, duration: Double): Double {
         return interest / (capital * duration)
     }
+
     private fun calculateDurationSimple(interest: Double, capital: Double, rate: Double): Double {
         return interest / (capital * rate)
     }
+
     private fun calculateInterestSimple(capital: Double, rate: Double, duration: Double): Double {
         return capital * rate * duration
     }
-    private fun calculateInterestCaseRateNullOrDurationNullInterest(capital: Double, amount: Double): Double{
-        return amount-capital
+
+    private fun calculateInterestCaseRateNullOrDurationNullInterest(capital: Double, amount: Double): Double {
+        return amount - capital
     }
-    private fun amountDividedByCapital(amount: Double, capital: Double):Double{
-        return amount/capital
+
+    private fun amountDividedByCapital(amount: Double, capital: Double): Double {
+        return amount / capital
     }
-    private fun ratePlusOne(rate: Double):Double{
-        return 1+rate
+
+    private fun ratePlusOne(rate: Double): Double {
+        return 1 + rate
     }
-    private fun rootAmountDividedByCapital(amount: Double, capital: Double, duration: Double):Double{
-        return ((amount/capital).pow(1.0/duration))
+
+    private fun rootAmountDividedByCapital(amount: Double, capital: Double, duration: Double): Double {
+        return ((amount / capital).pow(1.0 / duration))
     }
-    private fun calculateRateCompoundInterest(amount: Double, capital: Double, duration: Double): Double{
-        return ((amount/capital).pow(1.0/duration))-1
+
+    private fun calculateRateCompoundInterest(amount: Double, capital: Double, duration: Double): Double {
+        return ((amount / capital).pow(1.0 / duration)) - 1
     }
-    private fun calculateCapitalCompoundInterest(amount: Double, rate: Double, duration: Double): Double{
-        return amount/(1+rate.pow(duration))
+
+    private fun calculateCapitalCompoundInterest(amount: Double, rate: Double, duration: Double): Double {
+        return amount / (1 + rate.pow(duration))
     }
-    private fun calculateDurationCompoundInterst(amount: Double, capital: Double, rate: Double): Double{
-        return log10(amount/capital) / log10(1+rate)
+
+    private fun calculateDurationCompoundInterst(amount: Double, capital: Double, rate: Double): Double {
+        return log10(amount / capital) / log10(1 + rate)
     }
-    private fun calculateCapitalCaseAmountIsNullInterestSimple(interest: Double, rate: Double, duration: Double): Double {
-        return interest/(rate*duration)
+
+    private fun calculateCapitalCaseAmountIsNullInterestSimple(
+        interest: Double,
+        rate: Double,
+        duration: Double
+    ): Double {
+        return interest / (rate * duration)
     }
 }
