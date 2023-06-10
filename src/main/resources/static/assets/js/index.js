@@ -15,17 +15,18 @@ $(document).ready(function () {
         const formData = form.serializeArray().map((it) => it['value']);
 
         let isSimpleInterest = formData[5];
-        let isTimeUnitInMonths = $('input[name=timeUnit]:checked', '.interest-form').val() === 'month';
+        let isRateTimeUnitInMonths = $('input[name=rateTimeUnit]:checked', '.interest-form').val() === 'month';
+        let isDurationUnitInMonths = $('input[name=durationTimeUnit]:checked', '.interest-form').val() === 'month';
 
         const request = {
             interest: formData[0],
             amount: formData[1],
-            rate: isTimeUnitInMonths ? formData[2] : formData[2] * 12,
+            rate: (isRateTimeUnitInMonths ? formData[2] : formData[2] / 12) / 100,
             capital: formData[3],
-            duration: isTimeUnitInMonths ? formData[4] : formData[4] * 12,
+            duration: isDurationUnitInMonths ? formData[4] : formData[4] * 12,
         };
 
-        // interestValidation(request);
+        interestValidation(request);
 
         let interestType = isSimpleInterest ? "simple" : "compound";
 

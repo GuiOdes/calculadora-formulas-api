@@ -32,3 +32,8 @@ body {
 #div-response {
     margin-top: 3em;
 }
+
+.timeUnitDiv {
+    margin-left: -2em;
+    width: 200px
+}

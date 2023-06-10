@@ -41,17 +41,17 @@ export function pitagorasValidation(request) {
 }
 
 export function interestValidation(request) {
+    let interest = request["interest"] ?? '';
+    let capital = request["capital"] ?? '';
+    let amount = request["amount"] ?? '';
+    let rate = request["rate"] ?? '';
+    let duration = request["duration"] ?? '';
+    let isSimpleInterest = request["is-simple"] ?? '';
 
-    if (isNaN(request['interest']) || isNaN(request['amount']) || isNaN(request['rate']) || isNaN('capital') || isNaN('duration')) {
-        throw Error('Valor inválido para pelo menos um dos campos')
+    if (isNaN(interest) || isNaN(amount) || isNaN(rate) || isNaN(capital) || isNaN(duration)) {
+        throw Error('Valor inválido para pelo menos um dos campos');
     }
 
-    let interest = request["interest"];
-    let capital = request["capital"];
-    let amount = request["amount"];
-    let rate = request["rate"];
-    let duration = request["duration"];
-    let isSimpleInterest = request["is-simple"]
     let message = "Impossível calcular: ";
 
     if (interest == null && capital == null && isSimpleInterest) {

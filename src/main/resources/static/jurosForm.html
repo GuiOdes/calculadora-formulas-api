@@ -15,26 +15,43 @@
 
 <section id="navbar"></section>
 
-<h1 class="text-center mt-5">Calculadora de Pitágoras</h1>
-<h5 class="text-center text-danger">* Preencha os valores correspondentes e deixe o que você deseja descobrir em
-    branco</h5>
+<h1 class="text-center mt-5">Calculadora de Juros</h1>
+<h5 class="text-center text-danger">* Preencha os valores correspondentes e deixe o que você deseja descobrir em branco</h5>
+<h5 class="text-center text-danger">* A taxa deverá ser colocada em porcentagem, sem dividir o valor por 100 para
+    representação do valor</h5>
 <section id="bhaskaraFormSection" class="d-flex justify-content-center align-items-center" style="height: 50vh;">
     <div class="container">
 
         <center>
-            <form class="interest-form pitagoras">
+            <form class="interest-form pitagoras mt-5">
                 <input id="interest" class="form-control pitagoras mt-3" placeholder="Juros" name="interest">
                 <input id="amount" class="form-control pitagoras mt-3" placeholder="Montante" name="amount">
                 <input id="rate" class="form-control pitagoras mt-3" placeholder="Taxa (%)" name="rate">
                 <input id="capital" class="form-control pitagoras mt-3" placeholder="Capital" name="capital">
                 <input id="duration" class="form-control pitagoras mt-3" placeholder="Duração" name="duration">
-                <div style='margin-left: -2em;width: 200px' class="text-center">
-                    <p>Medida da taxa e duração:</p>
-                    <input class="form-check-input" type="radio" name="timeUnit" id="timeUnitRadio1" value="month"
-                           checked>
-                    <label class="form-check-label" for="timeUnitRadio1">Meses</label>
-                    <input class="form-check-input" type="radio" name="timeUnit" id="timeUnitRadio2" value="year">
-                    <label class="form-check-label" for="timeUnitRadio2">Anos</label>
+                <div class="text-center timeUnitDiv">
+                    Medida da duração:<br>
+                    <input class="form-check-input" type="radio" name="durationTimeUnit" id="durationTimeUnitRadio1" value="month" checked>
+                    <label class="form-check-label" for="durationTimeUnitRadio1">Meses</label>
+                    <input class="form-check-input" type="radio" name="durationTimeUnit" id="durationTimeUnitRadio2" value="year">
+                    <label class="form-check-label" for="durationTimeUnitRadio2">Anos</label>
+                </div>
+
+                <div class="text-center mt-3 timeUnitDiv">
+                    Medida da taxa:<br>
+                    <input class="form-check-input" type="radio" name="rateTimeUnit" id="rateTimeUnitRadio1" value="month" checked>
+                    <label class="form-check-label" for="rateTimeUnitRadio1">Meses</label>
+                    <input class="form-check-input" type="radio" name="rateTimeUnit" id="rateTimeUnitRadio2" value="year">
+                    <label class="form-check-label" for="rateTimeUnitRadio2">Anos</label>
+                </div>
+
+                <div class="text-center mt-3 interestTypeDiv">
+                    Tipo de juros:<br>
+                    <input class="form-check-input" type="radio" name="interestType" id="interestTypeRadio1" value="simples" checked>
+                    <label class="form-check-label" for="interestTypeRadio1">Simples</label>
+                    <br>
+                    <input class="form-check-input" type="radio" name="interestType" id="interestTypeRadio2" value="compostos">
+                    <label class="form-check-label" for="interestTypeRadio2">Compostos</label>
                 </div>
                 <button type="submit" class="btn btn-dark mt-3">Calcular</button>
             </form>
@@ -43,7 +60,7 @@
 </section>
 
 <section>
-    <div class="container text-center fw-bold">
+    <div class="container text-center fw-bold mt-5">
         <div id="div-resolution" class="fs-4"></div>
         <div id="div-response" class="fs-2 text-danger"></div>
     </div>
