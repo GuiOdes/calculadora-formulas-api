@@ -14,7 +14,7 @@ $(document).ready(function () {
 
         const formData = form.serializeArray().map((it) => it['value']);
 
-        let isSimpleInterest = formData[5];
+        let isSimpleInterest = formData[7] === 'simples';
         let isRateTimeUnitInMonths = $('input[name=rateTimeUnit]:checked', '.interest-form').val() === 'month';
         let isDurationUnitInMonths = $('input[name=durationTimeUnit]:checked', '.interest-form').val() === 'month';
 
