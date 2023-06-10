@@ -352,7 +352,7 @@ class InterestService(
     }
 
     private fun calculateCapitalCompoundInterest(amount: Double, rate: Double, duration: Double): Double {
-        return amount / (1 + rate.pow(duration))
+        return amount / ((1 + rate).pow(duration))
     }
 
     private fun calculateDurationCompoundInterst(amount: Double, capital: Double, rate: Double): Double {
